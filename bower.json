@@ -1,0 +1,32 @@
+{
+  "name": "ha-calculator",
+  "version": "1.0.0",
+  "description": "High Availability Calculator",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "authors": [
+    "Paveen Juntama (paveenju@aerothai.co.th)"
+  ],
+  "license": "MIT",
+  "homepage": "http://localhost:3000",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "bootstrap": "~3.3.5",
+    "jspanel": "~2.5.4",
+    "angular-resource": "~1.4.7"
+  },
+  "keywords": [
+    "High",
+    "Availability",
+    "TMCS"
+  ]
+}

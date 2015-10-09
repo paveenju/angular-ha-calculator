@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="main">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RAMS Calculator</title>
+
+  <link href="styles/default.css" rel="stylesheet">
+
+</head>
+
+<body class="container" data-ng-controller='RamsController as c'>
+
+  <h2 class="title bg-info">{{c.system.name}} : High Availability Design</h2>
+  <h3>System Availability : <b>{{ sysAv = c.system.getAvailability() * 100 }} %</b></h3>
+  <h3>Downtime : <b>{{ c.printSysDowntime(sysAv / 100) }}</b></h3>
+  <hr/>
+  <div>
+    <input type="radio" data-ng-model="c.show" data-ng-value="true"> Horizontal 
+    <input type="radio" data-ng-model="c.show" data-ng-value="false" checked> Vertical
+    <!-- a href="#">
+      <span data-ng-click="c.showInHorizontal()"
+            style="color: blue"
+            aria-hidden="true">Horizontal
+      </span>
+    </a> |
+    <a href="#">
+      <span data-ng-click="c.showInVertical()"
+            style="color: blue"
+            aria-hidden="true">Vertical
+      </span>
+    </a -->
+  </div>
+  <div data-ng-class="{'row' : c.show }">
+    <div data-ng-class="{'col-xs-3' : c.show }" data-ng-repeat="cl in c.system.clusters">
+      <h3>{{cl.name}}</h3>
+      <div class="well well-sm">
+        <p>System Availability : 
+          <span><b>{{ av = cl.getAvailability() * 100 }} %</b></span>
+        </p>
+        <p>System Downtime : 
+          <span><b>{{ c.printSysDowntime(av / 100) }}</b></span>
+        </p>
+      </div>
+      <table class="cluster table table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>MTBF</th>
+            <th>MTTR</th>
+            <th>%SA</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="cp in cl.components">
+            <td>{{cl.code + cp.id}}</td>
+            <td>
+              <input type="text" data-ng-model="cp.name" />
+            </td>
+            <td>
+              <input type="number" data-ng-model="cp.mtbf" />
+            </td>
+            <td>
+              <input type="number" data-ng-model="cp.mttr" />
+            </td>
+            <td>{{ (cp.getAvailability() * 100).toFixed(7) }}</td>
+            <td>
+              <a href="#">
+                <span data-ng-click="c.removeComponent(cp, cl)"
+                      class="glyphicon glyphicon-minus-sign"
+                      style="color: red"
+                      aria-hidden="true"></span>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <input type="text" data-ng-init="item.name=''" data-ng-model="item.name" />
+            </td>
+            <td>
+              <input type="number" data-ng-model="item.mtbf" />
+            </td>
+            <td>
+              <input type="number" data-ng-model="item.mttr" />
+            </td>
+            <td>
+              <a href="#">
+                <span data-ng-click="c.addComponent(item, cl)" 
+                      class="glyphicon glyphicon-plus-sign"
+                      style="color: green"
+                      aria-hidden="true"></span>
+              </a>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <hr/>
+  <code>Developed by {{ c.developerName }}</code>
+
+  <script src="scripts/lib.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>
