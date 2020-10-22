@@ -1,2 +1,2 @@
-# ha-calculator
+# angular-ha-calculator
 High Availability Calculator
